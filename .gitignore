@@ -1,0 +1,8 @@
+# cargo
+/target
+
+# nix
+/result
+
+# direnv
+/.direnv
