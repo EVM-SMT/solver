@@ -1,20 +1,22 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-use amzn_smt_ir::{logic::*, ParseError, Script, Term as IRTerm};
+use amzn_smt_ir::{ParseError, Script, Term as IRTerm};
+
+use solver::logic;
 
 use std::{fs, io};
 
-type Term = IRTerm<ALL>;
+type Term = IRTerm<QF_EUF>;
 
-fn parse(smtlib: impl std::io::BufRead) -> Result<Script<Term>, ParseError<ALL>> {
+fn parse(smtlib: impl std::io::BufRead) -> Result<Script<Term>, ParseError<QF_EUF>> {
     Script::<Term>::parse(smtlib)
 }
 
-pub fn parse_from_string(content: &str) -> Result<Script<Term>, ParseError<ALL>> {
+pub fn parse_from_string(content: &str) -> Result<Script<Term>, ParseError<QF_EUF>> {
     parse(content.as_bytes())
 }
 
-pub fn parse_from_file(filename: String) -> Result<Script<Term>, ParseError<ALL>> {
+pub fn parse_from_file(filename: String) -> Result<Script<Term>, ParseError<QF_EUF>> {
     let file = fs::File::open(filename);
     let file =
         file.expect("Error reading input file: did you try to read a file without extension smt2?");
