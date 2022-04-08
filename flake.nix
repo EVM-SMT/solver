@@ -14,7 +14,8 @@
 
   outputs = { self, fenix, flake-utils, naersk, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system: let
-      toolchain = fenix.packages.${system}.stable;
+      rust = fenix.packages.${system};
+      toolchain = rust.stable;
     in {
       defaultPackage = (naersk.lib.${system}.override {
         inherit (toolchain) cargo rustc;
@@ -25,7 +26,11 @@
       devShell = let
         pkgs = nixpkgs.legacyPackages.${system};
       in pkgs.mkShell {
-        nativeBuildInputs = with toolchain; [ cargo rustc ];
+        nativeBuildInputs = [
+          toolchain.cargo
+          toolchain.rustc
+          rust.rust-analyzer
+        ];
       };
     });
 }
