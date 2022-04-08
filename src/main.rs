@@ -13,7 +13,7 @@ fn main() {
 
     let mut ctx = Ctx::default();
     let checker = SortChecker(&mut ctx);
-    let typed = parsed.try_fold(checker);
+    let typed = parsed.try_fold(checker).unwrap();
 
     println!("{}", typed);
 }
