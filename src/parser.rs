@@ -2,7 +2,7 @@
 
 use amzn_smt_ir::{ParseError, Script, Term as IRTerm};
 
-use solver::logic;
+use crate::logic::QF_EUF;
 
 use std::{fs, io};
 

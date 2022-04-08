@@ -1,5 +1,5 @@
-(declare-fun foo (Bool) Bool)
+(declare-fun foo (Int) Bool)
 (declare-const a Bool)
 (declare-const b Bool)
-(assert (& a (foo b)))
+(assert (and a (foo b)))
 (check-sat)
