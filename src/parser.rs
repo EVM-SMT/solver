@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
+//! parses scripts in QF_EUF into an instance of the smt2 ir
 
 use amzn_smt_ir::{ParseError, Script, Term as IRTerm};
 

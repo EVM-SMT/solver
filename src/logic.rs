@@ -1,6 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-only
+//! Instantiation of QF_EUF for the amzn_smt_ir parser
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
 use amzn_smt_ir::{Logic, Void, QualIdentifier, UF, Term};
 
 #[derive(Clone, Default, Debug, Hash, PartialEq, Eq)]
