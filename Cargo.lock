@@ -144,13 +144,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
 
 [[package]]
-name = "evm-smt"
-version = "0.1.0"
-dependencies = [
- "amzn-smt-ir",
-]
-
-[[package]]
 name = "fst"
 version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -598,6 +591,13 @@ dependencies = [
  "structopt",
  "strum",
  "thiserror",
+]
+
+[[package]]
+name = "solver"
+version = "0.1.0"
+dependencies = [
+ "amzn-smt-ir",
 ]
 
 [[package]]
