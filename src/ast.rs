@@ -13,6 +13,7 @@ pub enum Op {
     VarBool(String),
 
     Eq(Vec<Op>),
+    Not(Box<Op>),
     And(Vec<Op>),
     Or(Vec<Op>),
     XOr(Vec<Op>),
