@@ -46,7 +46,7 @@ impl<L: Logic> Folder<L> for SortChecker<'_> {
             False => Ok(op.into()),
 
             Not(term) => match term.sort(self.0) {
-                Ok(ISort::Simple { identifier }) => match identifier.as_ref() {
+                Ok(amzn_smt_ir::ISort::Simple { identifier }) => match identifier.as_ref() {
                     Identifier::Simple { symbol } => {
                         match symbol.as_ref().0.as_ref() {
                             "Bool" => Ok(op.into()),
