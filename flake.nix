@@ -14,8 +14,12 @@
 
   outputs = { self, fenix, flake-utils, naersk, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system: let
-      rust = fenix.packages.${system};
-      toolchain = rust.stable;
+      pkgs = nixpkgs.legacyPackages.${system};
+      # TODO: figure out how to read this from the toochain file directly
+      toolchain = fenix.packages.${system}.toolchainOf {
+        channel = "1.59";
+        sha256 = "sha256-4IUZZWXHBBxcwRuQm9ekOwzc0oNqH/9NkI1ejW7KajU=";
+      };
     in {
       defaultPackage = (naersk.lib.${system}.override {
         inherit (toolchain) cargo rustc;
@@ -23,14 +27,10 @@
         src = ./.;
       };
 
-      devShell = let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in pkgs.mkShell {
-        nativeBuildInputs = [
-          toolchain.cargo
-          toolchain.rustc
-          rust.rust-analyzer
-        ];
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = [ (toolchain.withComponents [
+          "cargo" "rustc" "rust-src" "rustfmt" "clippy"
+        ])];
       };
     });
 }
