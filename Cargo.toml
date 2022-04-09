@@ -2,6 +2,3 @@
 name = "solver"
 version = "0.1.0"
 edition = "2021"
-
-[dependencies]
-amzn-smt-ir = { git = "https://github.com/awslabs/rust-smt-ir", version = "0.1", branch = "main" }

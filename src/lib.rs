@@ -1,6 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-License-Identifier: MIT
 
-pub mod parser;
-pub mod logic;
-pub mod sorts;
 pub mod ast;
