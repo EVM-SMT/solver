@@ -3,6 +3,14 @@
 
 pub struct Problem(Vec<Command>);
 
+pub enum Command {
+    Assert(BoolOp),
+    DeclareFun(String, Vec<Atom>, Atom),
+    DeclareVar(String, Atom),
+    CheckSat(),
+    GetModel(),
+}
+
 pub enum Atom {
     Bool(),
     BV(),
@@ -16,6 +24,11 @@ pub enum PolyOp<T> {
 pub enum BVOp {
     Shr(Box<BVOp>, Box<BVOp>),
     Shl(Box<BVOp>, Box<BVOp>),
+    Concat(Box<BVOp>, Box<BVOp>),
+    Extract(usize, usize),
+    BVNot(Box<BVOp>),
+    BVNeg(Box<BVOp>),
+    // ... more to come
 }
 
 pub enum BoolOp {
@@ -30,10 +43,3 @@ pub enum BoolOp {
     Distinct(Vec<BoolOp>),
 }
 
-pub enum Command {
-    Assert(BoolOp),
-    DeclareFun(String, Vec<Atom>, Atom),
-    DeclareVar(String, Atom),
-    CheckSat(),
-    GetModel(),
-}
