@@ -1,29 +1,39 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //! Post typechecking AST, we only support QF_EUF at the moment
 
-pub struct Problem(Vec<Term>);
+pub struct Problem(Vec<Command>);
 
-pub enum Term {
-    O(Op),
-    C(Command),
+pub enum Atom {
+    Bool(),
+    BV(),
 }
 
-pub enum Op {
+pub enum PolyOp<T> {
+    Eq(Vec<T>),
+    ITE(Box<BoolOp>, Box<T>, Box<T>),
+}
+
+pub enum BVOp {
+    Shr(Box<BVOp>, Box<BVOp>),
+    Shl(Box<BVOp>, Box<BVOp>),
+}
+
+pub enum BoolOp {
     LitBool(bool),
     VarBool(String),
 
-    Eq(Vec<Op>),
-    Not(Box<Op>),
-    And(Vec<Op>),
-    Or(Vec<Op>),
-    XOr(Vec<Op>),
-    Impl(Vec<Op>),
-    Distinct(Vec<Op>),
-    ITE(Box<Op>, Box<Op>, Box<Op>),
+    Not(Box<BoolOp>),
+    And(Vec<BoolOp>),
+    Or(Vec<BoolOp>),
+    XOr(Vec<BoolOp>),
+    Impl(Vec<BoolOp>),
+    Distinct(Vec<BoolOp>),
 }
 
 pub enum Command {
-    Assert(Op),
+    Assert(BoolOp),
+    DeclareFun(String, Vec<Atom>, Atom),
+    DeclareVar(String, Atom),
     CheckSat(),
     GetModel(),
 }
